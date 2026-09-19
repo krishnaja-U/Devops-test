@@ -16,4 +16,4 @@ USER appuser
 ENV PATH=/home/appuser/.local/bin:$PATH
 
 EXPOSE 8080
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8080"]
+CMD ["python", "main.py"]

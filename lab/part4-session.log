@@ -1,0 +1,1552 @@
+Script started on 2026-09-18 18:16:53+00:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="156" LINES="40"]
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ls
+[?2004lpart4-session.log
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cd ..
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test[01;32mubuntu@master[00m:[01;34m~/Devops-test[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test[01;32mubuntu@master[00m:[01;34m~/Devops-test[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test[01;32mubuntu@master[00m:[01;34m~/Devops-test[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test[01;32mubuntu@master[00m:[01;34m~/Devops-test[00m$ ls
+[?2004lANSWER.md  README.md  [0m[01;34mchart[0m  [01;34mlab[0m  [01;32msetup.sh[0m  [01;34msvc[0m
+[?2004h]0;ubuntu@master: ~/Devops-test[01;32mubuntu@master[00m:[01;34m~/Devops-test[00m$ cd ..
+[?2004l[?2004h]0;ubuntu@master: ~[01;32mubuntu@master[00m:[01;34m~[00m$ ls
+[?2004l[0m[01;34mDevops-test[0m  [01;34msnap[0m
+[?2004h]0;ubuntu@master: ~[01;32mubuntu@master[00m:[01;34m~[00m$ cd Devops-test/
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test[01;32mubuntu@master[00m:[01;34m~/Devops-test[00m$ cd lab/
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mcat > scenario.sh << 'SCENARIO_EOF'[27m
+[7m#!/usr/bin/env bash[27m
+[7m# Debug lab driver — Enterprise Bot DevOps take-home, Part 4.[27m
+[7m#[27m
+[7m#   ./scenario.sh up       install the lab (cluster-state + broken chart)[27m
+[7m#   ./scenario.sh verify   check the goal state; exit code = number of failures[27m
+[7m#   ./scenario.sh reset    remove the lab completely (then `up` to start over)[27m
+[7m#[27m
+[7m# Requires: kubectl and helm pointed at a local cluster (kind or minikube).[27m
+[7m# The same checks `verify` runs are the ones our grading harness runs — when[27m
+[7m# this is green, that part of your submission is done.[27m
+
+[7mset -u[27m
+[7mcd "$(dirname "$0")"[27m
+
+[7mNS=debug-lab[27m
+[7mRELEASE=debug-lab[27m
+
+[7mC_GREEN=$'\033[32m'; C_RED=$'\033[31m'; C_DIM=$'\033[2m'; C_OFF=$'\033[0m'[27m
+[7mPASS=0; FAIL=0[27m
+[7mok()  { PASS=$((PASS+1)); echo "  ${C_GREEN}PASS${C_OFF}  $*"; }[27m
+[7mbad() { FAIL=$((FAIL+1)); echo "  ${C_RED}FAIL${C_OFF}  $*"; }[27m
+
+[7mup() {[27m
+[7m  echo "==> applying cluster environment (cluster-state/)"[27m
+[7m  kubectl apply -f cluster-state/[27m
+[7m  echo "==> installing the broken chart"[27m
+[7m  if ! helm upgrade --install "$RELEASE" ./broken-chart -n "$NS"; then[27m
+[7m    echo ""[27m
+[7m    echo "${C_DIM}helm reported an error. That is not your machine misbehaving —${C_OFF}"[27m
+[7m    echo "${C_DIM}it is part[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > scenario.sh << 'SCENARIO_EOF'
+#!/usr/bin/env bash
+# Debug lab driver — Enterprise Bot DevOps take-home, Part 4.
+#
+#   ./scenario.sh up       install the lab (cluster-state + broken chart)
+#   ./scenario.sh verify   check the goal state; exit code = number of failures
+#   ./scenario.sh reset    remove the lab completely (then `up` to start over)
+#
+# Requires: kubectl and helm pointed at a local cluster (kind or minikube).
+# The same checks `verify` runs are the ones our grading harness runs — when
+# this is green, that part of your submission is done.
+
+set -u
+cd "$(dirname "$0")"
+
+NS=debug-lab
+RELEASE=debug-lab
+
+C_GREEN=$'\033[32m'; C_RED=$'\033[31m'; C_DIM=$'\033[2m'; C_OFF=$'\033[0m'
+PASS=0; FAIL=0
+ok()  { PASS=$((PASS+1)); echo "  ${C_GREEN}PASS${C_OFF}  $*"; }
+bad() { FAIL=$((FAIL+1)); echo "  ${C_RED}FAIL${C_OFF}  $*"; }
+
+up() {
+  echo "==> applying cluster environment (cluster-state/)"
+ state/)"[27m
+[7m  kubectl apply -f cluster-state/[27m
+[7m  echo "==> installing the broken chart"[27m
+[7m  if ! helm upgrade --install "$RELEASE" ./broken-chart -n "$NS"; then[27m
+[7m    echo ""[27m
+[7m    echo "${C_DIM}helm reported an error. That is not your machine misbehaving —${C_OFF}"[27m
+[7m    echo "${C_DIM}it is part[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > scenario.sh << 'SCENARIO_EOF'
+#!/usr/bin/env bash
+# Debug lab driver — Enterprise Bot DevOps take-home, Part 4.
+#
+#   ./scenario.sh up       install the lab (cluster-state + broken chart)
+#   ./scenario.sh verify   check the goal state; exit code = number of failures
+#   ./scenario.sh reset    remove the lab completely (then `up` to start over)
+#
+# Requires: kubectl and helm pointed at a local cluster (kind or minikube).
+# The same checks `verify` runs are the ones our grading harness runs — when
+# this is green, that part of your submission is done.
+
+set -u
+cd "$(dirname "$0")"
+
+NS=debug-lab
+RELEASE=debug-lab
+
+C_GREEN=$'\033[32m'; C_RED=$'\033[31m'; C_DIM=$'\033[2m'; C_OFF=$'\033[0m'
+PASS=0; FAIL=0
+ok()  { PASS=$((PASS+1)); echo "  ${C_GREEN}PASS${C_OFF}  $*"; }
+bad() { FAIL=$((FAIL+1)); echo "  ${C_RED}FAIL${C_OFF}  $*"; }
+
+up() {
+  echo "==> applying cluster environment (cluster-state/)"
+  kubectl apply -f cluster-state/
+  echo "==> installing the broken chart"
+  if ! helm upgrade --install "$RELEASE" ./broken-chart -n "$NS"; then
+    echo ""
+    echo "${C_DIM}helm reported an error. That is not your machine misbehaving —${C_OFF}"
+    echo "${C_DIM}it is part
+[?2004l[?2004h> ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > scenario.sh << 'SCENARIO_EOF'
+#!/usr/bin/env bash
+# Debug lab driver — Enterprise Bot DevOps take-home, Part 4.
+#
+#   ./scenario.sh up       install the lab (cluster-state + broken chart)
+#   ./scenario.sh verify   check the goal state; exit code = number of failures
+#   ./scenario.sh reset    remove the lab completely (then `up` to start over)
+#
+# Requires: kubectl and helm pointed at a local cluster (kind or minikube).
+# The same checks `verify` runs are the ones our grading harness runs — when
+# this is green, that part of your submission is done.
+
+set -u
+cd "$(dirname "$0")"
+
+NS=debug-lab
+RELEASE=debug-lab
+
+C_GREEN=$'\033[32m'; C_RED=$'\033[31m'; C_DIM=$'\033[2m'; C_OFF=$'\033[0m'
+PASS=0; FAIL=0
+ok()  { PASS=$((PASS+1)); echo "  ${C_GREEN}PASS${C_OFF}  $*"; }
+bad() { FAIL=$((FAIL+1)); echo "  ${C_RED}FAIL${C_OFF}  $*"; }
+
+up() {
+  echo "==> applying cluster environment (cluster-state/)"
+  kubectl apply -f cluster-state/
+  echo "==> installing the broken chart"
+  if ! helm upgrade --install "$RELEASE" ./broken-chart -n "$NS"; then
+    echo ""
+    echo "${C_DIM}helm reported an error. That is not your machine misbehaving —${C_OFF}"
+    echo "${C_DIM}it is part
+[A
+[?2004l[?2004h> ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ vi scenario.sh
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;40r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[40;1H"scenario.sh" [New][2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[2;1H[94m~                                                                                                                                       0; FAIL=0
+ok()  { PASS=$((PASS+1)); echo "  ${C_GREEN}PASS${C_OFF}  $*"; }
+bad() { FAIL=$((FAIL+1)); echo "  ${C_RED}FAIL${C_OFF}  $*"; }
+
+up() {
+  echo "==> applying cluster environment (cluster-state/)"
+  kubectl apply -f cluster-state/
+  echo "==> installing the broken chart"
+  if ! helm upgrade --install "$RELEASE" ./broken-chart -n "$NS"; then
+    echo ""
+    echo "${C_DIM}helm reported an error. That is not your machine misbehaving —${C_OFF}"
+    echo "${C_DIM}it is part
+[A
+[?2004l[?2004h> ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ vi scenario.sh
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;40r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[40;1H"scenario.sh" [New][2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[2;1H[94m~                                                                                                                                                           [3;1H~                                                                                                                                                           [4;1H~                                                                                                                                                           [5;1H~                                                                                                                                                           [6;1H~                                                                                                                                                           [7;1H~                                                                                                                                                           [8;1H~                                                                                                                                                           [9;1H~                                                                                                                                                           [10;1H~                                                                                                                                                           [11;1H~                                                                                                                                                           [12;1H~                                                                                                                                                           [13;1H~                                                                                                                                                           [14;1H~                                                                                                                                                           [15;1H~                                                                                                                                                           [16;1H~                                                                                                                                                           [17;1H~                                                                                                                                                           [18;1H~                                                                                                                                                           [19;1H~                                                                                                                                                           [20;1H~                                                                                                                                                           [21;1H~                                                                                                                                                           [22;1H~                                                                                                                                                           [23;1H~                                                                                                                                                           [24;1H~                                                                                                                                                           [25;1H~                                                                                                                                                           [26;1H~                                                                                                                                                           [27;1H~                                                                                                                                                           [28;1H~                                                                                                                                                           [29;1H~                                                                                                                                                           [30;1H~                                                                                                                                                           [31;1H~                                                                                                                                                           [32;1H~                                                                                                                                                           [33;1H~                                                                                                                                                           [34;1H~                                                                                                                                                           [35;1H~                                                                                                                                                           [36;1H~                                                                                                                                                           [37;1H~                                                                                                                                                           [38;1H~                                                                                                                                                           [39;1H~                                                                                                                                                           [m[40;139H0,0-1[9CAll[1;1H[?25h[?4m[?12$p[?25l[40;129H/[1;1H[40;130H0[1;1H[40;131H0[1;1H[40;132H0[1;1H[40;133H0[1;1H[40;134H/[1;1H[40;135H0[1;1H[40;136H0[1;1H[40;137H0[1;1H[40;138H0[1;1H[40;129H          [1;1H[27m[23m[29m[m[H[2J[2;1H[94m~                                                                                                                                                           [3;1H~                                                                                                                                                           [4;1H~                                                                                                                                                           [5;1H~                                                                                                                                                           [6;1H~                                                                                                                                                           [7;1H~                                  [23;1H~                                                                                                                                                           [24;1H~                                                                                                                                                           [25;1H~                                                                                                                                                           [26;1H~                                                                                                                                                           [27;1H~                                                                                                                                                           [28;1H~                                                                                                                                                           [29;1H~                                                                                                                                                           [30;1H~                                                                                                                                                           [31;1H~                                                                                                                                                           [32;1H~                                                                                                                                                           [33;1H~                                                                                                                                                           [34;1H~                                                                                                                                                           [35;1H~                                                                                                                                                           [36;1H~                                                                                                                                                           [37;1H~                                                                                                                                                           [38;1H~                                                                                                                                                           [39;1H~                                                                                                                                                           [m[40;139H0,0-1[9CAll"scenario.sh" [New][1;1H[?25h[?25l[40;1H[1m-- INSERT --[m[40;13H[K[40;139H0,1[11CAll[1;1H[96m#!/usr/bin/env bash
+# Debug lab driver —[2;21H Enterprise Bot DevO[m[2;41H[K[2;41H[?25h[?25l[96mps take-home, Part 4.
+#[m[3;2H[K[4;1H[96m#   ./scenario.sh up  [m[4;23H[K[4;23H[?25h[?25l[96m     install the lab (cluster-state + broken chart[?25h[?25l)
+#   ./scenario.sh verify   check the goal state; exit[m[5;54H[K[5;54H[?25h[?25l[96m code = number of failures
+#   ./scenario.sh reset    rem[m[6;31H[K[6;31H[?25h[?25l[96move the lab completely (then `up` to start over)
+#[m[7;2H[K[8;1H[96m# Requir[m[8;9H[K[8;9H[?25h[?25l[96mes: kubectl and helm pointed at a local cluster (kind or mini[?25h[?25lkube).
+# The same checks `verify` runs are the ones our gradi[m[9;55H[K[9;55H[?25h[?25l[96mng harness runs —[9;72H when
+# this is green, that part of your su[m[10;38H[K[10;38H[?25h[?25l[96mbmission is done.[m[11;1H[K[12;1H[93mset[m[1m[96m [m[38;5;224m-u[m[12;7H[K[13;1H[93mcd[m [93m"[m[38;5;81m$([m[38;5;224mdirname [m[93m"[m[38;5;81m$0[m[93m"[m[38;5;81m)[m[93m"[m[13;21H[K[14;1H[K[15;1H[1m[96mNS[m=debug-lab[15;13H[K[16;1HR[16;2H[K[16;2H[?25h[?25l[1m[96mRELEASE[m=debug-lab[17;1H[K[18;1H[1m[96mC_GREEN[m=[97m[101m$'[m[95m\033[32m[m[97m[101m'[m; [1m[96mC_RED[m=[97m[101m$'[m[95m\033[31m[m[97m[101m'[m; C_DI[18;45H[K[18;45H[?25h[?25l[1m[96mC_DIM[m=[97m[101m$'[m[95m\033[2m[m[97m[101m'[m; [1m[96mC_OFF[m=[97m[101m$'[m[95m\033[0m[m[97m[101m'[m
+[1m[96mPASS[m=[95m0[m; [1m[96mFAIL[m=[95m0[m[19;15H[K[20;1H[1m[96mok()  {[m [1m[96mPASS[m=[38;5;81m$(([m[20;17H[K[20;17H[?25h[?25l[38;5;224mPASS+[m[95m1[m[38;5;81m))[m[93m;[m [93mecho[m[95m [m[93m"[m[95m  [m[38;5;81m${C_GREEN}[m[95mPASS[m[38;5;81m${C_OFF}[m[95m  [m[38;5;81m$*[m[93m";[m [1m[96m}
+bad() {[m [1m[96mFAIL[m=$[21;15H[K[21;15H[?25h[?25l[38;5;81m$(([m[38;5;224mFAIL+[m[95m1[m[38;5;81m))[m[93m;[m [93mecho[m[95m [m[93m"[m[95m  [m[38;5;81m${C_RED}[m[95mFAIL[m[38;5;81m${C_OFF}[m[95m  [m[38;5;81m$*[m[93m";[m [1m[96m}[m[22;1H[K[23;1H[1m[96mup() {[m[23;7H[K[24;1H  [93mecho[m[24;7H[K[24;7H[?25h[?25l[95m [m[93m"[m[95m==> applying cluster environment (cluster-state/)[m[93m"[m
+  kubectl [25;11H[K[25;11H[?25h[?25lapply [38;5;224m-f[m cluster-state/
+  [93mecho[m[95m [m[93m"[m[95m==> installing the broken chart[m[26;40H[K[26;40H[?25h[?25l[93m"[m
+  [93mif ![m helm upgrade [38;5;224m--install[m [93m"[m[38;5;81m$RELEASE[m[93m"[m ./broken-chart [93m-n[m [93m"[m[95m$[m[27;62H[K[27;62H[?25h[?25l[38;5;81m$NS[m[93m";[m [93mthen[m
+    [93mecho[m[95m [m[93m""[m[28;12H[K[29;1H    [93mecho[m[95m [m[93m"[m[38;5;81m${C_DIM}[m[95mhelm reported an error.[m[29;42H[K[29;42H[?25h[?25l[95m That is not your machine misbehaving —[m[29;81H[38;5;81m${C_OFF}[m[93m"[m
+    [93mecho[m[95m [m[93m"[m[38;5;81m${[m[30;13H[K[30;13H[?25h[?25l[38;5;81mC_DIM}[m[95mit is part of the exercise. Read the error; it is eviden[?25h[?25lce.[m[38;5;81m${C_OFF}[m[93m"[m
+  [93mfi[m[31;5H[K[32;1H  [93mecho[m[95m [m[93m""[m[32;10H[K[33;1H  [93mecho[m[95m [m[93m"[m[95mLab is (partially) install[m[33;35H[K[33;35H[?25h[?25l[95med. Investigate with kubectl, fix the chart,[m[93m"[m
+  [93mecho[m[95m [m[93m"[m[95mre-run '.[m[34;18H[K[34;18H[?25h[?25l[95m/scenario.sh up' to apply your fixes, and './scenario.sh verify[?25h[?25l'[m[93m"[m
+  [93mecho[m[95m [m[93m"[m[95mto check progress.[m[93m"[m[35;28H[K[36;1H[1m[96m}[m[36;2H[K[37;1H[K[38;1H[96m# One throwaway busybox pod r[m[38;30H[K[38;30H[?25h[?25l[96muns all in-cluster probes in a single pass.[m
+[1m[96mincluster_probe() {[m[39;20H[K[39;20H[?25h[?25l[43C[?25h[?25l[1;39r[39;1H
+[1;40r[39;3Hkubectl [38;5;224m-n[m [93m"[m[38;5;81m$NS[m[93m"[m run eb-verify-probe [38;5;224m--rm[m [38;5;224m-i[m [38;5;224m--restart[m[93m=[mNever \[40;11H[1m(paste) --[m[40;139H[K[39;61H[?25h[?25l[1;39r[39;1H
+[1;40r[39;5H[38;5;224m--image[m[93m=[mbusybox:[95m1[m.[95m36[m [38;5;224m--quiet[m [38;5;224m--pod-running-timeout[m[93m=[m90s [38;5;224m--command[m [38;5;224m--[m sh [38;5;224m-c[m [93m'[39;44H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[95m      wget -q -O- -T 4 http://backend:8080/healthz >/dev/null 2>&1 \[39;38H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[95m        && echo PROBE_BACKEND=ok || echo PROBE_BACKEND=fail[39;41H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[95m      GW=$(wget -q -O- -T 6 http://gateway.debug-lab.svc/status 2>/dev/null)[39;27H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[95m      echo "PROBE_GATEWAY_BODY=$GW"[18C[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[95m      RP=$(wget -q -O- -T 6 http://reporter:8080/report 2>/dev/null)[39;11H[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;1H[95m      echo "PROBE_REPORTER_BODY=$RP"
+      nslookup backend >/dev/null 2>&1 \[39;33H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[95m        && echo PROBE_DNS=ok || echo PROBE_DNS=fail[39;12H[?25h[?25l[1;39r[m[1;1H[5M[1;40r[35;1H[95m    [m[93m'[m [95m2[m[93m>[m/dev/null
+[1m[96m}
+
+verify() {[m
+  [93mecho[m[95m [m[93m"[m[95m==> verifying goal state in namespace [m[38;5;81m$NS[m[93m"[39;23H[?25h[?25l[1;39r[m[1;1H[2M[1;40r[39;3H[96m# 1. migration Job ran to completion[8C[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3H[93mif [[m [93m"[m[38;5;81m$([m[38;5;224mkubectl -n [m[93m"[m[38;5;81m$NS[m[93m"[m[38;5;224m get job migrate -o [m[1m[96mjsonpath[m=[93m'[m[95m{.status.succeeded}[m[93m'[m[38;5;224m [m[95m2[m[93m>[m[38;5;224m/dev/null[m[38;5;81m)[m[93m"[m [93m=[m [95m"1"[m [93m];[m [93mthen[39;5H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;5Hok [93m"[m[95mmigrate Job completed[m[93m"[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;3H[93melse[m
+    bad [93m"[m[95mmigrate Job has not completed (does it exist? did the chart even install cleanly?)[m[93m"[?25h[?25l[39;21H[?25h[?25l[1;39r[m[1;1H[4M[1;40r[36;3H[93mfi[m
+
+  [96m# 2. every Deployment fully Ready[m
+  [93mfor[m d [93min[m backend gateway worker reporter metrics[93m;[m [93mdo[39;29H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;5H[1m[96mwant[m=[38;5;81m$([m[38;5;224mkubectl -n [m[93m"[m[38;5;81m$NS[m[93m"[m[38;5;224m get deploy [m[93m"[m[38;5;81m$d[m[93m"[m[38;5;224m -o [m[1m[96mjsonpath[m=[93m'[m[95m{.spec.replicas}[m[93m'[m[38;5;224m [m[95m2[m[93m>[m[38;5;224m/dev/null[m[38;5;81m)[m   [?25h[?25l[1;39r[39;1H
+[1;40r[39;5H[1m[96mhave[m=[38;5;81m$([m[38;5;224mkubectl -n [m[93m"[m[38;5;81m$NS[m[93m"[m[38;5;224m get deploy [m[93m"[m[38;5;81m$d[m[93m"[m[38;5;224m -o [m[1m[96mjsonpath[m=[93m'[m[95m{.status.[?25h[?25lreadyReplicas}[m[93m'[m[38;5;224m [m[95m2[m[93m>[m[38;5;224m/dev/null[m[38;5;81m)[39;35H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;5H[93mif [[m [93m-n[m [93m"[m[38;5;81m$want[m[93m"[m [93m][m [93m&&[m [93m[[m [93m"[m[38;5;81m${have[m[93m:-[m0[38;5;81m}[m[93m"[m [93m=[m [95m"[m[38;5;81m$want[m[95m"[m [93m];[m [93mthen[39;40H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;7Hok [93m"[m[95mdeployment [m[38;5;81m$d[m[95m: [m[38;5;81m$have[m[95m/[m[38;5;81m$want[m[95m ready[m[93m"[m      [?25h[?25l[1;39r[1;1H[2M[1;40r[38;5H[93melse[m[39;7Hbad [93m"[m[95mdeployment [m[38;5;81m$d[m[95m: [m[38;5;81m${have[m[93m:-[m0[38;5;81m}[m[95m/[m[38;5;81m${want[m[93m:-[m?[38;5;81m}[m[95m ready[m[93m"[39;11H[?25h[?25l[1;39r[m[1;1H[5M[1;40r[35;5H[93mfi
+[m  [93mdone[m
+
+  [96m# 3. nothing is crash-looping[m
+  [1m[96mloops[m=[38;5;81m$([m[38;5;224mkubectl -n [m[93m"[m[38;5;81m$NS[m[93m"[m[38;5;224m get pods \[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;1H[38;5;224m    -o [m[1m[96mjsonpath[m=[93m'[m[95m{range .items[*]}{.metadata.name} {.status.containerStatuses[0].state.waiting.rea[?25h[?25lson}{"\n"}{end}[m[93m'[m[38;5;224m [m[95m2[m[93m>[m[38;5;224m/dev/null \[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;1H[38;5;224m    [m[93m|[m[38;5;224m [m[93mgrep[m[38;5;224m -c CrashLoopBackOff[m[38;5;81m)[m
+  [93mif [[m [93m"[m[38;5;81m${loops[m[93m:-[m0[38;5;81m}[m[93m"[m [93m-eq[m [95m0[m [93m];[m [?25h[?25l[93mthen[39;5H[?25h[?25l[1;39r[m[1;1H[3M[1;40r[37;5Hok [93m"[m[95mno pods in CrashLoopBackOff[m[93m"
+[m  [93melse[m
+    bad [93m"[m[38;5;81m$loops[m[95m pod(s) in CrashLoopBackOff[m[93m"[39;11H[?25h[?25l[1;39r[m[1;1H[3M[1;40r[37;3H[93mfi[m
+
+  [96m# 4. the reporter ServiceAccount really may list pods[39;13H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3H[93mif [mkubectl auth can[93m-i[m list pods [93m-n[m [93m"[m[38;5;81m$NS[m[93m"[m \[39;28H[?25h[?25l[1;39r[39;1H
+[1;40r[39;7H[38;5;224m--as[m[93m="[m[95msystem:serviceaccount:[m[38;5;81m${NS}[m[95m:reporter[m[93m"[m [93m>[m/dev/null [95m2[m[93m>&[m[95m1[m[93m;[m [93mthen[39;17H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;5Hok [93m"[m[95mServiceAccount [m[38;5;81m${NS}[m[95m/reporter can list pods[m[93m"[39;19H[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;3H[93melse[m
+    bad [93m"[m[95mServiceAccount [m[38;5;81m${NS}[m[95m/reporter cannot list pods[m[93m"[39;18H[?25h[?25l[1;39r[m[1;1H[3M[1;40r[37;3H[93mfi[m
+
+  [96m# 5. in-cluster behaviour: backend serves, gateway aggregates, reporter repor[?25h[?25lts[39;34H[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;3H[1m[96mprobe[m=[38;5;81m$([m[38;5;224mincluster_probe[m[38;5;81m)[m
+  [93mcase[m [93m"[m[38;5;81m$probe[m[93m"[m [93min[m *PROBE_BACKEND=ok*[93m)[m ok [93m"[m[95mbackend answers on http://backend:8080/healthz[m[93m";;[39;4H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;20H*[93m)[m bad [93m"[m[95mbackend does not answer on http://backe[?25h[?25lnd:8080/healthz[m[93m";;[m [93mesac[39;40H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3H[93mcase[m [93m"[m[38;5;81m$probe[m[93m"[m [93min[m *[93m'[m[95m"backend":"ok"[m[93m'[m*[93m)[m ok [93m"[m[95mgateway /status reports backend=ok[m[93m";;[39;22H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;20H*[93m)[m bad [93m"[m[95mgateway /status does not report backend=ok[m[93m";;[m [93mesac[39;7H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3H[93mif printf[m [93m'[m[95m%s[m[93m'[m [93m"[m[38;5;81m$probe[m[93m"[m [93m|[m [93mgrep[m [93m-q[m [93m'[m[95mPROBE_REPORTER_BODY=.*"pods":[1-[?25h[?25l9][m[93m';[m [93mthen[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;5Hok [93m"[m[95mreporter /report sees pods in the namespace[m[93m"
+[m  [93melse[m [?25h[?25l[1;39r[1;1H[2M[1;40r[38;5Hbad [93m"[m[95mreporter /report does not return a pod count[m[93m"
+[m  [93mfi[15C[?25h[?25l[1;39r[m[1;1H[4M[1;40r[37;3H[93mecho[m[95m [m[93m""
+[m  [93mif [[m [93m"[m[38;5;81m$FAIL[m[93m"[m [93m-eq[m [95m0[m [93m];[m [93mthen
+[m    [93mecho[m[95m [m[93m"[m[38;5;81m${C_GREEN}[m[95mALL GREEN[m[38;5;81m${C_OFF}[m[95m —[39;40H [m[38;5;81m$PASS[m[95m/[m[38;5;81m$(([m[38;5;224mPASS+FAIL[m[38;5;81m))[m[95m checks passed. This[?25h[?25l part is done.[m[93m"[39;40H[?25h[?25l[1;39r[m[1;1H[2M[1;40r[38;3H[93melse
+[m    [93mecho[m[95m [m[93m"[m[38;5;81m${C_RED}$FAIL[m[95m check(s) failing[m[38;5;81m${C_OFF}[m[95m, [m[38;5;81m$PASS[m[95m passing. Keep diggin[?25h[?25lg —[39;80H every failure is a symptom.[m[93m"[m   [?25h[?25l[1;39r[1;1H[6M[1;40r[34;3H[93mfi
+[m  [93mexit[m [93m"[m[38;5;81m$FAIL[m[93m"[m
+[1m[96m}
+
+reset() {[m
+  [93mecho[m[95m [m[93m"[m[95m==> removing the lab[m[93m"[12C[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3Hhelm uninstall [93m"[m[38;5;81m$RELEASE[m[93m"[m [38;5;224m-n[m [93m"[m[38;5;81m$NS[m[93m"[m [95m2[m[93m>[m/dev/null [93m||[m [93mtrue[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3Hkubectl delete namespace [93m"[m[38;5;81m$NS[m[93m"[m [38;5;224m--ignore-not-found[m [38;5;224m--wait[m[93m=true[39;52H[?25h[?25l[1;39r[m[39;1H
+[1;40r[39;3H[93mecho[m[95m [m[93m"[m[95mRemoved. Note: this does NOT restore the chart files —[39;63H use git for that.[m[93m"[39;12H[?25h[?25l[1;39r[m[1;1H[4M[1;40r[36;1H[1m[96m}[m
+
+[93mcase[m [93m"[m[38;5;81m${1[m[93m:-[m[38;5;81m}[m[93m"[m [93min[m
+  up[93m)[m     up [93m;;[m    [?25h[?25l[40;1H[K[1;39r[1;1H[5M[1;40r[35;3Hverify[93m)[m verify [93m;;[m
+  reset[93m)[m  reset [93m;;[m
+  *[93m)[m [93mecho[m[95m [m[93m"[m[95musage: [m[38;5;81m$0[m[95m up|verify|reset[m[93m";[m [93mexit[m [95m2[m [93m;;
+esac[m
+SCENARIO_EOF[40;139H126,12[8CBot[39;12H[?25h[?25l[40;129Hi[39;12H[40;129H [39;12H
+[1m-- INSERT --[m[40;139H[K[40;139H126,12[8CBot[39;12H[?25h[?25l[40;144H3[39;13H[?25h[?25l[39;12H[K[40;144H2[39;12H[?25h[?25l[39;11H[K[40;144H1[39;11H[?25h[?25l[39;10H[K[40;144H0[39;10H[?25h[?25l[39;9H[K[40;143H9 [39;9H[?25h[?25l[39;8H[K[40;143H8[39;8H[?25h[?25l[39;7H[K[40;143H7[39;7H[?25h[?25l[39;6H[K[40;143H6[39;6H[?25h[?25l[39;5H[K[40;143H5[39;5H[?25h[?25l[39;4H[K[40;143H4[39;4H[?25h[?25l[39;3H[K[40;143H3[39;3H[?25h[?25l[39;2H[K[40;143H2[39;2H[?25h[?25l[39;1H[K[40;143H1[39;1H[?25h[40;1H[K[39;1H[?25l[40;129H^[[39;1H[40;129H  [39;1H[40;139H126,0-1[7CBot[39;1H[?25h[?25l[40;129Hg[39;1H[?25h[?25l[40;129H [39;1H[40;129Hgg[39;1H[40;129H  [1;1H[96m#!/usr/bin/env bash
+# Debug lab driver —[2;21H Enterprise Bot DevOps take-home, Part 4.
+#[m[3;3H[K[4;1H[96m#   ./scenario.sh up       install the lab (cluster-state + broken chart)
+#   ./scenario.sh verify   check the goal state; exit code = number of failures[m[5;80H[K[6;1H[96m#   ./scenario.sh reset    remove the lab completely (then `up` to start over)
+#[m[7;3H[K[8;1H[96m# Requires: kubectl and helm pointed at a local cluster (kind or minikube).[m[8;76H[K[9;1H[96m# The same checks `verify` runs are the ones our grading harness runs —[9;72H when[m[9;77H[K[10;1H[96m# this is green, that part of your submission is done.[m[10;55H[K[11;3H[K[12;1H[93mset[m[1m[96m [m[38;5;224m-u[m[12;8H[K[13;1H[93mcd[m [93m"[m[38;5;81m$([m[38;5;224mdirname [m[93m"[m[38;5;81m$0[m[93m"[m[38;5;81m)[m[93m"[m[14;5H[K[15;1H[1m[96mNS[m=debug-lab
+[1m[96mRELEASE[m=debug-lab[17;3H[K[18;1H[1m[96mC_GREEN[m=[97m[101m$'[m[95m\033[32m[m[97m[101m'[m; [1m[96mC_RED[m=[97m[101m$'[m[95m\033[31m[m[97m[101m'[m; [1m[96mC_DIM[m=[97m[101m$'[m[95m\033[2m[m[97m[101m'[m; [1m[96mC_OFF[m=[97m[101m$'[m[95m\033[0m[m[97m[101m'[m
+[1m[96mPASS[m=[95m0[m; [1m[96mFAIL[m=[95m0[m[19;15H[K[20;1H[1m[96mok()  {[m [1m[96mPASS[m=[38;5;81m$(([m[38;5;224mPASS+[m[95m1[m[38;5;81m))[m[93m;[m [93mecho[m[95m [m[93m"[m[95m  [m[38;5;81m${C_GREEN}[m[95mPASS[m[38;5;81m${C_OFF}[m[95m  [m[38;5;81m$*[m[93m";[m [1m[96m}
+bad() {[m [1m[96mFAIL[m=[38;5;81m$(([m[38;5;224mFAIL+[m[95m1[m[38;5;81m))[m[93m;[m [93mecho[m[95m [m[93m"[m[1C[95m [m[38;5;81m${C_RED}[m[95mFAIL[m[38;5;81m${C_OFF}[m[95m [m[1C[38;5;81m$*[m[93m";[m [1m[96m}[m[21;63H[K[22;3H[K[23;1H[1m[96mup() {[m[23;8H[K[24;1H  [93mecho[m[95m [m[93m"[m[95m==> applying cluster environment (cluster-state/)[m[93m"[m
+  kubectl apply [38;5;224m-f[m cluster-state/
+  [93mecho[m[95m [m[93m"[m[95m==> installing the broken chart[m[93m"
+[m  [93mif ![m helm upgrade [38;5;224m--install[m [93m"[m[38;5;81m$RELEASE[m[93m"[m ./broken-chart [93m-n[m [93m"[m[38;5;81m$NS[m[93m";[m [93mthen[m
+    [93mecho[m[95m [m[93m""[m[28;12H[K[29;3H  [93mecho[m[95m [m[93m"[m[38;5;81m${C_DIM}[m[95mhelm reported an error. That is not your machine misbehaving —[m[29;81H[38;5;81m${C_OFF}[m[93m"[m
+    [93mecho[m[95m [m[93m"[m[38;5;81m${C_DIM}[m[95mit is part of the exercise. Read the error; it is evidence.[m[38;5;81m${C_OFF}[m[93m"[m
+  [93mfi
+[m  [93mecho[m[95m [m[93m""[m
+  [93mecho[m[95m [m[93m"[m[95mLab is (partially) installed. Investigate with kubectl, fix the chart,[m[93m"
+[m  [93mecho[m[95m [m[93m"[m[95mre-run './scenario.sh up' to apply your fixes, and './scenario.sh verify'[m[93m"
+[m  [93mecho[m[95m [m[93m"[m[95mto check progress.[m[93m"[m
+[1m[96m}[m[36;3H[K[37;3H[K[38;1H[96m# One throwaway busybox pod runs all in-cluster probes in a single pass.[m
+[1m[96mincluster_probe() {[m[40;140H,1    [7CTop[1;1H[?25h[?25l[40;129H~@k[1;1H[40;129H   [2;1H[40;139H2[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;3Hkubectl [38;5;224m-n[m [93m"[m[38;5;81m$NS[m[93m"[m run eb-verify-probe [38;5;224m--rm[m [38;5;224m-i[m [38;5;224m--restart[m[93m=[mNever \[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;5H[38;5;224m--image[m[93m=[mbusybox:[95m1[m.[95m36[m [38;5;224m--quiet[m [38;5;224m--pod-running-timeout[m[93m=[m90s [38;5;224m--command[m [38;5;224m--[m sh [38;5;224m-c[m [93m'[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m      wget -q -O- -T 4 http://backend:8080/healthz >/dev/null 2>&1 \[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m        && echo PROBE_BACKEND=ok || echo PROBE_BACKEND=fail[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m      GW=$(wget -q -O- -T 6 http://gateway.debug-lab.svc/status 2>/dev/null)[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m      echo "PROBE_GATEWAY_BODY=$GW"[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m      RP=$(wget -q -O- -T 6 http://reporter:8080/report 2>/dev/null)[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m      echo "PROBE_REPORTER_BODY=$RP"[m[40;139H[K[40;139H2,1[11CTop[2;1H[?25h[?25l[40;129Hd[2;1H[?25h[?25l[40;130Hd[2;1H[40;129H  [2;1H[2;39r[39;1H
+[1;40r[39;1H[95m      nslookup backend >/dev/null 2>&1 \[m[40;139H[K[40;139H2,0-1[9CTop[2;1H[?25h[?25l[40;129H^[[2;1H[40;129H  [2;1H[40;129H^[[2;1H[40;129H  [2;1H[?25h[?25l[40;129H:[2;1H[40;129H[K[40;1H:[?25hwq![?25l[?2004l[>4;m"scenario.sh" [New] 117L, 4372B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cjmp[K[K[Khmod +x scenario.sh 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ bash sv[Kcenario.sh up
+[?2004l==> applying cluster environment (cluster-state/)
+error: the path "cluster-state/" does not exist
+==> installing the broken chart
+Release "debug-lab" does not exist. Installing it now.
+Error: path "./broken-chart" not found
+
+[2mhelm reported an error. That is not your machine misbehaving —[0m
+[2mit is part of the exercise. Read the error; it is evidence.[0m
+
+Lab is (partially) installed. Investigate with kubectl, fix the chart,
+re-run './scenario.sh up' to apply your fixes, and './scenario.sh verify'
+to check progress.
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cd ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mmkdir -p cluster-state[27m
+[7mcat > cluster-state/namespace.yaml << 'EOF'[27m
+[7m# Part of the lab environment. DO NOT MODIFY — the grading harness re-applies[27m
+[7m# the pristine copy of everything in cluster-state/ before evaluating your[27m
+[7m# chart, so changes here cannot fix anything and will be flagged.[27m
+[7mapiVersion: v1[27m
+[7mkind: Namespace[27m
+[7mmetadata:[27m
+[7m  name: debug-lab[27m
+[7m  labels:[27m
+[7m    app.kubernetes.io/part-of: eb-debug-lab[27m
+[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ mkdir -p cluster-state
+cat > cluster-state/namespace.yaml << 'EOF'
+# Part of the lab environment. DO NOT MODIFY — the grading harness re-applies
+# the pristine copy of everything in cluster-state/ before evaluating your
+# chart, so changes here cannot fix anything and will be flagged.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: debug-lab
+  labels:
+    app.kubernetes.io/part-of: eb-debug-lab
+EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mcat > cluster-state/limits.yaml << 'EOF'[27m
+[7m# Part of the lab environment. DO NOT MODIFY — the grading harness re-applies[27m
+[7m# the pristine copy of everything in cluster-state/ before evaluating your[27m
+[7m# chart, so changes here cannot fix anything and will be flagged.[27m
+[7m#[27m
+[7m# This LimitRange mirrors the guardrails on our shared clusters: sane defaults[27m
+[7m# for pods that don't specify resources, and a hard per-container ceiling.[27m
+[7mapiVersion: v1[27m
+[7mkind: LimitRange[27m
+[7mmetadata:[27m
+[7m  name: debug-lab-guardrails[27m
+[7m  namespace: debug-lab[27m
+[7mspec:[27m
+[7m  limits:[27m
+[7m    - type: Container[27m
+[7m      defaultRequest:[27m
+[7m        cpu: 50m[27m
+[7m        memory: 64Mi[27m
+[7m      default:[27m
+[7m        cpu: 200m[27m
+[7m        memory: 128Mi[27m
+[7m      max:[27m
+[7m        cpu: "1"[27m
+[7m        memory: 512Mi[27m
+[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > cluster-state/limits.yaml << 'EOF'
+# Part of the lab environment. DO NOT MODIFY — the grading harness re-applies
+# the pristine copy of everything in cluster-state/ before evaluating your
+# chart, so changes here cannot fix anything and will be flagged.
+#
+# This LimitRange mirrors the guardrails on our shared clusters: sane defaults
+# for pods that don't specify resources, and a hard per-container ceiling.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: debug-lab-guardrails
+  namespace: debug-lab
+spec:
+  limits:
+    - type: Container
+      defaultRequest:
+        cpu: 50m
+        memory: 64Mi
+      default:
+        cpu: 200m
+        memory: 128Mi
+      max:
+        cpu: "1"
+        memory: 512Mi
+EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > FINDINGS.md << 'EOF'
+# Findings — Part 4 debug lab
+
+Fill in one entry per defect you find. Paste the *actual* output you saw —
+we cross-check it against your session recording and your git diff, and the
+diagnostic path matters more to us than the fix itself.
+
+Before you start investigating, begin recording:
+`script -q part4-session.log` (or `asciinema rec part4-session.cast`), and
+commit that file alongside this one.
+
+---
+
+## Defect 1
+
+**Symptom** (what you observed — paste the real command output):
+
+**Cause** (the actual root cause, not the symptom restated):
+
+**Fix** (what you changed, and why this over alternatives):
+
+**How I found it** (the sequence of commands/reasoning that led you here):
+
+---
+
+## Defect 2
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 3
+
+**Symptom:****Cause:****Fix:****How I found it:**---[7m## Defect 4[27m[7m**Symptom:**[27m[7m**Cause:**[27m[7m**Fix:**[27m[7m**How I found it:**[27m[7m---[27m[7m## Defect 5[27m[7m**Symptom:**[27m[7m**Cause:**[27m[7m**Fix:**[27m[7m**How I found it:**[27m[7m---[27m[7m## Defect 6[27m[7m**Symptom:**[27m[7m**Cause:**[27m[7m**Fix:**[27m[7m**How I found it:**[27m[7m---[27m[7mIf you ran out of time on any defect, say so here and describe what you would[27m[7mhave tried next — that section is read carefully and counts in your favour.[27m[7mEOF[27m## Defect 4**Symptom:****Cause:****Fix:****How I found it:**---## Defect 5**Symptom:****Cause:****Fix:****How I found it:**---## Defect 6**Symptom:****Cause:****Fix:****How I found it:**---If you ran out of time on any defect, say so here and describe what you wouldhave tried next — that section is read carefully and counts in your favour.EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ls
+[?2004lFINDINGS.md  [0m[01;34mcluster-state[0m  part4-session.log  [01;32mscenario.sh[0m
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ct[Kat FINDINGS.md 
+[?2004l# Findings — Part 4 debug lab
+
+Fill in one entry per defect you find. Paste the *actual* output you saw —
+we cross-check it against your session recording and your git diff, and the
+diagnostic path matters more to us than the fix itself.
+
+Before you start investigating, begin recording:
+`script -q part4-session.log` (or `asciinema rec part4-session.cast`), and
+commit that file alongside this one.
+
+---
+
+## Defect 1
+
+**Symptom** (what you observed — paste the real command output):
+
+**Cause** (the actual root cause, not the symptom restated):
+
+**Fix** (what you changed, and why this over alternatives):
+
+**How I found it** (the sequence of commands/reasoning that led you here):
+
+---
+
+## Defect 2
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 3
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 4
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 5
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 6
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+If you ran out of time on any defect, say so here and describe what you would
+have tried next — that section is read carefully and counts in your favour.
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat FINDINGS.md ls[Kcat > FINDINGS.md << 'EOF'
+# Findings — Part 4 debug lab
+
+Fill in one entry per defect you find. Paste the *actual* output you saw —
+we cross-check it against your session recording and your git diff, and the
+diagnostic path matters more to us than the fix itself.
+
+Before you start investigating, begin recording:
+`script -q part4-session.log` (or `asciinema rec part4-session.cast`), and
+commit that file alongside this one.
+
+---
+
+## Defect 1
+
+**Symptom** (what you observed — paste the real command output):
+
+**Cause** (the actual root cause, not the symptom restated):
+
+**Fix** (what you changed, and why this over alternatives):
+
+**How I found it** (the sequence of commands/reasoning that led you here):
+
+---
+
+## Defect 2
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 3
+
+**Symptom:****Cause:****Fix:****How I found it:**---## Defect 4**Symptom:****Cause:****Fix:****How I found it:**---## Defect 5**Symptom:****Cause:****Fix:****How I found it:**---## Defect 6**Symptom:****Cause:****Fix:****How I found it:**---If you ran out of time on any defect, say so here and describe what you wouldhave tried next — that section is read carefully and counts in your favour.EOF[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14@cluster-state/limits.yaml
+[C[CPart of the lab environment. DO NOT MODIFY — the grading harness re-applies
+# the pristine copy of everything in cluster-state/ before evaluating your
+[9P# chart, so changes here cannot fix anything and will be flagged.
+#                                                                          
+# This LimitRange mirrors the guardrails on our shared clusters: sane defaults
+# for pods that don't specify resources, and a hard per-container ceiling.
+apiVersion: v1                                  
+kind: LimitRange                                                          
+metadata:                           
+  name: debug-lab-guardrails
+  namespace: debug-lab
+spec:
+[2P  limits:
+    - type: Container
+      defaultRequest:                                           
+        cpu: 50m
+[40P        memory: 64Mi
+      default:
+        cpu: 200m                                          
+        memory: 128Mi
+      max:                                                                
+        cpu: "1"
+        memory: 512Mi
+EOF
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3@namespace
+
+
+
+apiVersion: v1
+kind: Namespace                                                               
+metadata:                                                                 
+  name: debug-lab
+[7P  labels:
+    app.kubernetes.io/part-of: eb-debug-lab
+EOF                         
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pmkdir -p cluster-state
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pbash scenario.sh upchmod +x scenario.sh C^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat FINDINGS.md ls[Kcat > FINDINGS.md << 'EOF'
+# Findings — Part 4 debug lab
+
+Fill in one entry per defect you find. Paste the *actual* output you saw —
+we cross-check it against your session recording and your git diff, and the
+diagnostic path matters more to us than the fix itself.
+
+Before you start investigating, begin recording:
+`script -q part4-session.log` (or `asciinema rec part4-session.cast`), and
+commit that file alongside this one.
+
+---
+
+## Defect 1
+
+**Symptom** (what you observed — paste the real command output):
+
+**Cause** (the actual root cause, not the symptom restated):
+
+**Fix** (what you changed, and why this over alternatives):
+
+**How I found it** (the sequence of commands/reasoning that led you here):
+
+---
+
+## Defect 2
+
+**Symptom:**
+
+**Cause:**
+
+**Fix:**
+
+**How I found it:**
+
+---
+
+## Defect 3
+
+**Symptom:****Cause:****Fix:****How I found it:**---## Defect 4**Symptom:****Cause:****Fix:****How I found it:**---## Defect 5**Symptom:****Cause:****Fix:****How I found it:**---## Defect 6**Symptom:****Cause:****Fix:****How I found it:**---If you ran out of time on any defect, say so here and describe what you wouldhave tried next — that section is read carefully and counts in your favour.EOF[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14@cluster-state/limits.yaml
+[C[CPart of the lab environment. DO NOT MODIFY — the grading harness re-applies
+# the pristine copy of everything in cluster-state/ before evaluating your
+[9P# chart, so changes here cannot fix anything and will be flagged.
+#                                                                          
+# This LimitRange mirrors the guardrails on our shared clusters: sane defaults
+# for pods that don't specify resources, and a hard per-container ceiling.
+apiVersion: v1                                  
+kind: LimitRange                                                          
+metadata:                           
+  name: debug-lab-guardrails
+  namespace: debug-lab
+spec:
+[2P  limits:
+    - type: Container
+      defaultRequest:                                           
+        cpu: 50m
+[40P        memory: 64Mi
+      default:
+        cpu: 200m                                          
+        memory: 128Mi
+      max:                                                                
+        cpu: "1"
+        memory: 512Mi
+EOF
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3@namespace
+
+
+
+apiVersion: v1
+kind: Namespace                                                               
+metadata:                                                                 
+  name: debug-lab
+[7P  labels:
+    app.kubernetes.io/part-of: eb-debug-lab
+EOF                         
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pmkdir -p cluster-state
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pbash scenario.sh up^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7m./scenario.sh up[27m
+[7m./scenario.sh verify[27m[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ./scenario.sh up
+./scenario.sh verify
+[?2004l==> applying cluster environment (cluster-state/)
+namespace/debug-lab created
+Error from server (NotFound): error when creating "cluster-state/limits.yaml": namespaces "debug-lab" not found
+==> installing the broken chart
+Release "debug-lab" does not exist. Installing it now.
+Error: path "./broken-chart" not found
+
+[2mhelm reported an error. That is not your machine misbehaving —[0m
+[2mit is part of the exercise. Read the error; it is evidence.[0m
+
+Lab is (partially) installed. Investigate with kubectl, fix the chart,
+re-run './scenario.sh up' to apply your fixes, and './scenario.sh verify'
+to check progress.
+==> verifying goal state in namespace debug-lab
+  [31mFAIL[0m  migrate Job has not completed (does it exist? did the chart even install cleanly?)
+  [31mFAIL[0m  deployment backend: 0/? ready
+  [31mFAIL[0m  deployment gateway: 0/? ready
+  [31mFAIL[0m  deployment worker: 0/? ready
+  [31mFAIL[0m  deployment reporter: 0/? ready
+  [31mFAIL[0m  deployment metrics: 0/? ready
+  [32mPASS[0m  no pods in CrashLoopBackOff
+  [31mFAIL[0m  ServiceAccount debug-lab/reporter cannot list pods
+kubectl apply -f cluster-state/  [31mFAIL[0m  backend does not answer on http://backend:8080/healthz
+  [31mFAIL[0m  gateway /status does not report backend=ok
+  [31mFAIL[0m  reporter /report does not return a pod count
+
+[31m10 check(s) failing[0m, 1 passing. Keep digging — every failure is a symptom.
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ kubectl apply -f cluster-state/^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mkubectl apply -f cluster-state/[27mkubectl apply -f cluster-state/
+[?2004llimitrange/debug-lab-guardrails created
+namespace/debug-lab unchanged
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7m./scenario.sh up[27m
+[7m./scenario.sh verify[27m[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ./scenario.sh up
+./scenario.sh verify
+[?2004l==> applying cluster environment (cluster-state/)
+limitrange/debug-lab-guardrails unchanged
+namespace/debug-lab unchanged
+==> installing the broken chart
+Release "debug-lab" does not exist. Installing it now.
+Error: path "./broken-chart" not found
+
+[2mhelm reported an error. That is not your machine misbehaving —[0m
+[2mit is part of the exercise. Read the error; it is evidence.[0m
+
+Lab is (partially) installed. Investigate with kubectl, fix the chart,
+re-run './scenario.sh up' to apply your fixes, and './scenario.sh verify'
+to check progress.
+==> verifying goal state in namespace debug-lab
+  [31mFAIL[0m  migrate Job has not completed (does it exist? did the chart even install cleanly?)
+  [31mFAIL[0m  deployment backend: 0/? ready
+  [31mFAIL[0m  deployment gateway: 0/? ready
+  [31mFAIL[0m  deployment worker: 0/? ready
+  [31mFAIL[0m  deployment reporter: 0/? ready
+  [31mFAIL[0m  deployment metrics: 0/? ready
+  [32mPASS[0m  no pods in CrashLoopBackOff
+  [31mFAIL[0m  ServiceAccount debug-lab/reporter cannot list pods
+^C
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mfind / -iname "*devops-takehome*" 2>/dev/null[27m
+[7mfind / -iname "*eb-devops*" 2>/dev/null[27m
+[7mfind ~ -iname "*.zip" 2>/dev/null[27m[A[Afind / -iname "*devops-takehome*" 2>/dev/null
+find / -iname "*eb-devops*" 2>/dev/null
+find ~ -iname "*.zip" 2>/dev/null
+[?2004l^C
+^C
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ls
+[?2004lFINDINGS.md  [0m[01;34mcluster-state[0m  part4-session.log  [01;32mscenario.sh[0m
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mmkdir -p broken-chart/templates[27m
+[7mcat > broken-chart/Chart.yaml << 'EOF'[27m
+[7mapiVersion: v2[27m
+[7mname: debug-lab[27m
+[7mdescription: >-[27m
+[7m  Enterprise Bot debug lab — a small platform slice (gateway, backend, worker,[27m
+[7m  reporter, metrics, and a migration Job) that is currently broken in six ways.[27m
+[7mtype: application[27m
+[7mversion: 2.0.0[27m
+[7mappVersion: "1.0.1"[27m
+[7mEOF[27m[A[A[A[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ mkdir -p broken-chart/templates
+cat > broken-chart/Chart.yaml << 'EOF'
+apiVersion: v2
+name: debug-lab
+description: >-
+  Enterprise Bot debug lab — a small platform slice (gateway, backend, worker,
+  reporter, metrics, and a migration Job) that is currently broken in six ways.
+type: application
+version: 2.0.0
+appVersion: "1.0.1"
+EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/values.yaml << 'EOF'
+# Debug lab — values.
+#
+# Lab rules (also in the assignment):
+#   * You may change anything in this chart — values or templates.
+#   * You may NOT change image.repository or image.tag.
+#   * You may NOT modify anything under ../cluster-state/.
+#   * You may NOT delete workloads to make a symptom disappear.
+
+image:
+  repository: docker.io/ebinterview/eb-debug-app
+  tag: "1.0.1"
+  pullPolicy: IfNotPresent
+
+common:
+  # Every workload serves plain HTTP on this port.
+  port: 8080
+
+backend:
+  replicas: 1
+  env:
+    APP_MODE: "api"
+    APP_NAME: "backend"
+    VERSION: "2.0.0"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "200m"
+      memory: "128Mi"
+
+gateway:
+  replicas: 1
+  env:
+    APP_MODE: "gateway"
+    APP_NAME: "gateway"
+    VERSION: "2.0.0"
+    BACKEND_URL: "http://backend.default.svc:8080"
+  resources:
+    requests:      cpu: "50m"      memory: "64Mi"    limits:      cpu: "200m"      memory: "128Mi"worker:  replicas: 1  env:    APP_MODE: "worker"    APP_NAME: "worker"    VERSION: "2.0.0"  resources:[7m    requests:[27m[7m      cpu: "50m"[27m[7m      memory: "64Mi"[27m[7m    limits:[27m[7m      cpu: "200m"[27m[7m      memory: "128Mi"[27m[7mreporter:[27m[7m  replicas: 1[27m[7m  serviceAccountName: reporter[27m[7m  env:[27m[7m    APP_MODE: "reporter"[27m[7m    APP_NAME: "reporter"[27m[7m    VERSION: "2.0.0"[27m[7m  resources:[27m[7m    requests:[27m[7m      cpu: "50m"[27m[7m      memory: "64Mi"[27m[7m    limits:[27m[7m      cpu: "200m"[27m[7m      memory: "128Mi"[27m[7mmetrics:[27m[7m  replicas: 1[27m[7m  env:[27m[7m    APP_MODE: "api"[27m[7m    APP_NAME: "metrics"[27m[7m    VERSION: "2.0.0"[27m[7m  resources:[27m[7m    requests:[27m[7m      cpu: "2"[27m[7m      memory: "64Mi"[27m[7m    limits:[27m[7m      cpu: "4"[27m[7m      memory: "128Mi"[27m[7mmigrate:[27m[7m  enabled: true[27m[7m  backoffLimit: 2[27m[7mEOF[27m    requests:      cpu: "50m"      memory: "64Mi"    limits:      cpu: "200m"      memory: "128Mi"reporter:  replicas: 1  serviceAccountName: reporter  env:    APP_MODE: "reporter"    APP_NAME: "reporter"    VERSION: "2.0.0"  resources:    requests:      cpu: "50m"      memory: "64Mi"    limits:      cpu: "200m"      memory: "128Mi"metrics:  replicas: 1  env:    APP_MODE: "api"    APP_NAME: "metrics"    VERSION: "2.0.0"  resources:    requests:      cpu: "2"      memory: "64Mi"    limits:      cpu: "4"      memory: "128Mi"migrate:  enabled: true  backoffLimit: 2EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ 
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/backend.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+    {{- include "lab.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+        {{- include "lab.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+[7m          imagePullPolicy: {{ .Values.image.pullPolicy }}[27m
+[7m          ports:[27m
+[7m            - name: http[27m
+[7m              containerPort: {{ .Values.common.port }}[27m
+[7m          env:[27m
+[7m            {{- range $name, $value := .Values.backend.env }}[27m
+[7m            - name: {{ $name }}[27m
+[7m              value: {{ $value | quote }}[27m
+[7m            {{- end }}[27m
+[7m          readinessProbe:[27m
+[7m            httpGet:[27m
+[7m              path: /healthz[27m
+[7m              port: {{ .Values.common.port }}[27m
+[7m            initialDelaySeconds: 3[27m
+[7m            periodSeconds: 5[27m
+[7m            timeoutSeconds: 3[27m
+[7m          securityContext:[27m
+[7m            runAsNonRoot: true[27m
+[7m            readOnlyRootFilesystem: true[27m[7m            allowPrivilegeEscalation: false[27m[7m            capabilities:[27m[7m              drop: ["ALL"][27m[7m          resources:[27m[7m            {{- toYaml .Values.backend.resources | nindent 12 }}[27m[7m---[27m[7mapiVersion: v1[27m[7mkind: Service[27m[7mmetadata:[27m[7m  name: backend[27m[7m  labels:[27m[7m    app: backend[27m[7m    {{- include "lab.labels" . | nindent 4 }}[27m[7mspec:[27m[7m  selector:[27m[7m    app: backend[27m[7m  ports:[27m[7m    - name: http[27m[7m      port: 8080[27m[7m      targetPort: {{ .Values.common.port }}[27m[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.common.port }}
+          env:
+            {{- range $name, $value := .Values.backend.env }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.common.port }}
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true            allowPrivilegeEscalation: false            capabilities:              drop: ["ALL"]          resources:            {{- toYaml .Values.backend.resources | nindent 12 }}---apiVersion: v1kind: Servicemetadata:  name: backend  labels:    app: backend    {{- include "lab.labels" . | nindent 4 }}spec:  selector:    app: backend  ports:    - name: http      port: 8080      targetPort: {{ .Values.common.port }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/gateway.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    {{- include "lab.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+        {{- include "lab.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: gateway
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+[7m          imagePullPolicy: {{ .Values.image.pullPolicy }}[27m
+[7m          ports:[27m
+[7m            - name: http[27m
+[7m              containerPort: {{ .Values.common.port }}[27m
+[7m          env:[27m
+[7m            {{- range $name, $value := .Values.gateway.env }}[27m
+[7m            - name: {{ $name }}[27m
+[7m              value: {{ $value | quote }}[27m
+[7m            {{- end }}[27m
+[7m          readinessProbe:[27m
+[7m            httpGet:[27m
+[7m              path: /healthz[27m
+[7m              port: {{ .Values.common.port }}[27m
+[7m            initialDelaySeconds: 3[27m
+[7m            periodSeconds: 5[27m
+[7m            timeoutSeconds: 3[27m
+[7m          securityContext:[27m
+[7m            runAsNonRoot: true[27m
+[7m            readOnlyRootFilesystem: true[27m[7m            allowPrivilegeEscalation: false[27m[7m            capabilities:[27m[7m              drop: ["ALL"][27m[7m          resources:[27m[7m            {{- toYaml .Values.gateway.resources | nindent 12 }}[27m[7m---[27m[7mapiVersion: v1[27m[7mkind: Service[27m[7mmetadata:[27m[7m  name: gateway[27m[7m  labels:[27m[7m    app: gateway[27m[7m    {{- include "lab.labels" . | nindent 4 }}[27m[7mspec:[27m[7m  selector:[27m[7m    app: gateway[27m[7m  ports:[27m[7m    - name: http[27m[7m      port: 80[27m[7m      targetPort: {{ .Values.common.port }}[27m[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.common.port }}
+          env:
+            {{- range $name, $value := .Values.gateway.env }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.common.port }}
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true            allowPrivilegeEscalation: false            capabilities:              drop: ["ALL"]          resources:            {{- toYaml .Values.gateway.resources | nindent 12 }}---apiVersion: v1kind: Servicemetadata:  name: gateway  labels:    app: gateway    {{- include "lab.labels" . | nindent 4 }}spec:  selector:    app: gateway  ports:    - name: http      port: 80      targetPort: {{ .Values.common.port }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/gateway.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    {{- include "lab.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+        {{- include "lab.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: gateway
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+[7m          imagePullPolicy: {{ .Values.image.pullPolicy }}[27m
+[7m          ports:[27m
+[7m            - name: http[27m
+[7m              containerPort: {{ .Values.common.port }}[27m
+[7m          env:[27m
+[7m            {{- range $name, $value := .Values.gateway.env }}[27m
+[7m            - na       runAsNonRoot: true
+            readOnlyRootFilesystem: true            allowPrivilegeEscalation: false            capabilities:              drop: ["ALL"]          resources:            {{- toYaml .Values.gateway.resources | nindent 12 }}---apiVersion: v1kind: Servicemetadata:  name: gateway  labels:    app: gateway    {{- include "lab.labels" . | nindent 4 }}spec:  selector:    app: gateway  ports:    - name: http      port: 80      targetPort: {{ .Values.common.port }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/gateway.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    {{- include "lab.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+        {{- include "lab.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: gateway
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+[7m          imagePullPolicy: {{ .Values.image.pullPolicy }}[27m
+[7m          ports:[27m
+[7m            - name: http[27m
+[7m              containerPort: {{ .Values.common.port }}[27m
+[7m          env:[27m
+[7m            {{- range $name, $value := .Values.gateway.env }}[27m
+[7m            - name: {{ $name }}[27m
+[7m              value: {{ $value | quote }}[27m
+[7m            {{- end }}[27m
+[7m          readinessProbe:[27m
+[7m            httpGet:[27m
+[7m              path: /healthz[27m
+[7m              port: {{ .Values.common.port }}[27m
+[7m            initialDelaySeconds: 3[27m
+[7m            periodSeconds: 5[27m
+[7m            timeoutSeconds: 3[27m
+[7m          securityContext:[27m
+[7m            runAsNonRoot: true[27m
+[7m            readOnlyRootFilesystem: true[27m[7m            allowPrivilegeEscalation: false[27m[7m            capabilities:[27m[7m              drop: ["ALL"][27m[7m          resources:[27m[7m            {{- toYaml .Values.gateway.resources | nindent 12 }}[27m[7m---[27m[7mapiVersion: v1[27m[7mkind: Service[27m[7mmetadata:[27m[7m  name: gateway[27m[7m  labels:[27m[7m    app: gateway[27m[7m    {{- include "lab.labels" . | nindent 4 }}[27m[7mspec:[27m[7m  selector:[27m[7m    app: gateway[27m[7m  ports:[27m[7m    - name: http[27m[7m      port: 80[27m[7m      targetPort: {{ .Values.common.port }}[27m[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.common.port }}
+          env:
+            {{- range $name, $value := .Values.gateway.env }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.common.port }}
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true            allowPrivilegeEscalation: false            capabilities:              drop: ["ALL"]          resources:            {{- toYaml .Values.gateway.resources | nindent 12 }}---apiVersion: v1kind: Servicemetadata:  name: gateway  labels:    app: gateway    {{- include "lab.labels" . | nindent 4 }}spec:  selector:    app: gateway  ports:    - name: http      port: 80      targetPort: {{ .Values.common.port }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/reporter.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reporter
+  labels:
+  ilegeEscalation: false[27m[7m            capabilities:[27m[7m              drop: ["ALL"][27m[7m          resources:[27m[7m            {{- toYaml .Values.reporter.resources | nindent 12 }}[27m[7m---[27m[7mapiVersion: v1[27m[7mkind: Service[27m[7mmetadata:[27m[7m  name: reporter[27m[7m  labels:[27m[7m    app: reporter[27m[7m    {{- include "lab.labels" . | nindent 4 }}[27m[7mspec:[27m[7m  selector:[27m[7m    app: reporter[27m[7m  ports:[27m[7m    - name: http[27m[7m      port: 8080[27m[7m      targetPort: {{ .Values.common.port }}[27m[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            {{- range $name, $value := .Values.reporter.env }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.common.port }}
+            initialDelaySeconds: 3            periodSeconds: 5            timeoutSeconds: 3          securityContext:            runAsNonRoot: true            readOnlyRootFilesystem: true            allowPrivilegeEscalation: false            capabilities:              drop: ["ALL"]          resources:            {{- toYaml .Values.reporter.resources | nindent 12 }}---apiVersion: v1kind: Servicemetadata:  name: reporter  labels:    app: reporter    {{- include "lab.labels" . | nindent 4 }}spec:  selector:    app: reporter  ports:    - name: http      port: 8080      targetPort: {{ .Values.common.port }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mcat > broken-chart/templates/rbac.yaml << 'EOF'[27m
+[7mapiVersion: v1[27m
+[7mkind: ServiceAccount[27m
+[7mmetadata:[27m
+[7m  name: reporter[27m
+[7m  labels:[27m
+[7m    app: reporter[27m
+[7m    {{- include "lab.labels" . | nindent 4 }}[27m
+[7m---[27m
+[7mapiVersion: rbac.authorization.k8s.io/v1[27m
+[7mkind: Role[27m
+[7mmetadata:[27m
+[7m  name: reporter-read[27m
+[7m  labels:[27m
+[7m    app: reporter[27m
+[7m    {{- include "lab.labels" . | nindent 4 }}[27m
+[7mrules:[27m
+[7m  - apiGroups: [""][27m
+[7m    resources: ["pods"][27m
+[7m    verbs: ["get", "list"][27m
+[7m---[27m
+[7mapiVersion: rbac.authorization.k8s.io/v1[27m
+[7mkind: RoleBinding[27m
+[7mmetadata:[27m
+[7m  name: reporter-read[27m
+[7m  labels:[27m
+[7m    app: reporter[27m
+[7m    {{- include "lab.labels" . | nindent 4 }}[27m
+[7mroleRef:[27m
+[7m  apiGroup: rbac.authorization.k8s.io[27m
+[7m  kind: Role[27m
+[7m  name: reporter-read[27m
+[7msubjects:[27m
+[7m  - kind: ServiceAccount[27m
+[7m    name: default[27m
+[7m    namespace: {{ .Release.Namespace }}[27m
+[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/rbac.yaml << 'EOF'
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: reporter
+  labels:
+    app: reporter
+    {{- include "lab.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: reporter-read
+  labels:
+    app: reporter
+    {{- include "lab.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: reporter-read
+  labels:
+    app: reporter
+    {{- include "lab.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: reporter-read
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: {{ .Release.Namespace }}
+EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/metrics.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics
+  labels:
+    app: metrics
+[7m    {{- include "lab.labels" . | nindent 4 }}[27m
+[7mspec:[27m
+[7m  replicas: {{ .Values.metrics.replicas }}[27m
+[7m  selector:[27m
+[7m    matchLabels:[27m
+[7m      app: metrics[27m
+[7m  template:[27m
+[7m    metadata:[27m
+[7m      labels:[27m
+[7m        app: metrics[27m
+[7m        {{- include "lab.labels" . | nindent 8 }}[27m
+[7m    spec:[27m
+[7m      containers:[27m
+[7m        - name: metrics[27m
+[7m          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"[27m
+[7m          imagePullPolicy: {{ .Values.image.pullPolicy }}[27m
+[7m          ports:[27m
+[7m            - name: http[27m
+[7m              containerPort: {{ .Values.common.port }}[27m
+[7m          env:[27m
+[7m            {{- range $name, $value := .Values.metrics.env }}[27m
+[7m            - name: {{ $name }}[27m
+[7m              value: {{ $value | quote }}[27m
+[7m            {{- end }}[27m
+[7m          readinessProbe:[27m
+[7m            httpGet:[27m
+[7m              path: /healthz[27m
+[7m              port: {{ .Values.common.port }}[27m
+[7m            initialDelaySeconds: 3[27m
+[7m            periodSeconds: 5[27m
+[7m            timeoutSeconds: 3[27m
+[7m          securityContext:[27m
+[7m            runAsNonRoot: true[27m
+[7m            readOnlyRootFilesystem: true[27m[7m            allowPrivilegeEscalation: false[27m[7m            capabilities:[27m[7m              drop: ["ALL"][27m[7m          resources:[27m[7m            {{- toYaml .Values.metrics.resources | nindent 12 }}[27m[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A    {{- include "lab.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.metrics.replicas }}
+  selector:
+    matchLabels:
+      app: metrics
+  template:
+    metadata:
+      labels:
+        app: metrics
+        {{- include "lab.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: metrics
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.common.port }}
+          env:
+            {{- range $name, $value := .Values.metrics.env }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.common.port }}
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true            allowPrivilegeEscalation: false            capabilities:              drop: ["ALL"]          resources:            {{- toYaml .Values.metrics.resources | nindent 12 }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cat > broken-chart/templates/migrate-job.yaml << 'EOF'
+{{- if .Values.migrate.enabled }}
+apiVersion: batch/v1
+[7mkind: Job[27m
+[7mmetadata:[27m
+[7m  name: migrate[27m
+[7m  labels:[27m
+[7m    app: migrate[27m
+[7m    {{- include "lab.labels" . | nindent 4 }}[27m
+[7mspec:[27m
+[7m  backoffLimit: {{ .Values.migrate.backoffLimit }}[27m
+[7m  template:[27m
+[7m    metadata:[27m
+[7m      labels:[27m
+[7m        app: migrate[27m
+[7m    spec:[27m
+[7m      restartPolicy: Always[27m
+[7m      containers:[27m
+[7m        - name: migrate[27m
+[7m          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"[27m
+[7m          imagePullPolicy: {{ .Values.image.pullPolicy }}[27m
+[7m          env:[27m
+[7m            - name: APP_MODE[27m
+[7m              value: "migrate"[27m
+[7m            - name: APP_NAME[27m
+[7m              value: "migrate"[27m
+[7m            - name: VERSION[27m
+[7m              value: "2.0.0"[27m
+[7m          securityContext:[27m
+[7m            runAsNonRoot: true[27m
+[7m            readOnlyRootFilesystem: true[27m
+[7m            allowPrivilegeEscalation: false[27m
+[7m            capabilities:[27m
+[7m              drop: ["ALL"][27m
+[7m          resources:[27m
+[7m            requests:[27m
+[7m              cpu: "50m"[27m
+[7m              memory: "64Mi"[27m
+[7m            limits:[27m
+[7m              cpu: "200m"[27m
+[7m              memory: "128Mi"[27m[7m{{- end }}[27m[7mEOF[27m[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Akind: Job
+metadata:
+  name: migrate
+  labels:
+    app: migrate
+    {{- include "lab.labels" . | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.migrate.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        app: migrate
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: migrate
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: APP_MODE
+              value: "migrate"
+            - name: APP_NAME
+              value: "migrate"
+            - name: VERSION
+              value: "2.0.0"
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"{{- end }}EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mfind broken-chart -type f[27mfind broken-chart -type f
+[?2004lbroken-chart/Chart.yaml
+broken-chart/templates/rbac.yaml
+broken-chart/templates/backend.yaml
+broken-chart/templates/migrate-job.yaml
+broken-chart/templates/gateway.yaml
+broken-chart/templates/metrics.yaml
+broken-chart/templates/reporter.yaml
+broken-chart/values.yaml
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mcd ..[27m
+[7mcd lab[27m
+[7m./scenario.sh up[27m
+[7m./scenario.sh verify[27m[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cd ..
+cd lab
+./scenario.sh up
+./scenario.sh verify
+[?2004l==> applying cluster environment (cluster-state/)
+limitrange/debug-lab-guardrails unchanged
+namespace/debug-lab unchanged
+==> installing the broken chart
+Release "debug-lab" does not exist. Installing it now.
+Error: debug-lab/templates/reporter.yaml:7:8
+  executing "debug-lab/templates/reporter.yaml" at <include "lab.labels" .>:
+    error calling include:
+template: no template "lab.labels" associated with template "gotpl"
+
+[2mhelm reported an error. That is not your machine misbehaving —[0m
+[2mit is part of the exercise. Read the error; it is evidence.[0m
+
+Lab is (partially) installed. Investigate with kubectl, fix the chart,
+re-run './scenario.sh up' to apply your fixes, and './scenario.sh verify'
+to check progress.
+==> verifying goal state in namespace debug-lab
+  [31mFAIL[0m  migrate Job has not completed (does it exist? did the chart even install cleanly?)
+  [31mFAIL[0m  deployment backend: 0/? ready
+  [31mFAIL[0m  deployment gateway: 0/? ready
+  [31mFAIL[0m  deployment worker: 0/? ready
+  [31mFAIL[0m  deployment reporter: 0/? ready
+  [31mFAIL[0m  deployment metrics: 0/? ready
+  [32mPASS[0m  no pods in CrashLoopBackOff
+  [31mFAIL[0m  ServiceAccount debug-lab/reporter cannot list pods
+  [31mFAIL[0m  backend does not answer on http://backend:8080/healthz
+  [31mFAIL[0m  gateway /status does not report backend=ok
+  [31mFAIL[0m  reporter /report does not return a pod count
+
+[31m10 check(s) failing[0m, 1 passing. Keep digging — every failure is a symptom.
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mkubectl get pods -n debug-lab[27mkubectl get pods -n debug-lab
+[?2004lNAME              READY   STATUS    RESTARTS   AGE
+eb-verify-probe   0/1     Pending   0          2m10s
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mls -la broken-chart/templates/[27m
+[7mcat broken-chart/templates/_helpers.tpl[27m[Als -la broken-chart/templates/
+cat broken-chart/templates/_helpers.tpl
+[?2004ltotal 32
+drwxrwxr-x 2 ubuntu ubuntu 4096 Sep 18 18:24 [0m[01;34m.[0m
+drwxrwxr-x 3 ubuntu ubuntu 4096 Sep 18 18:23 [01;34m..[0m
+-rw-rw-r-- 1 ubuntu ubuntu 1552 Sep 18 18:23 backend.yaml
+-rw-rw-r-- 1 ubuntu ubuntu 1550 Sep 18 18:23 gateway.yaml
+-rw-rw-r-- 1 ubuntu ubuntu 1298 Sep 18 18:23 metrics.yaml
+-rw-rw-r-- 1 ubuntu ubuntu 1067 Sep 18 18:24 migrate-job.yaml
+-rw-rw-r-- 1 ubuntu ubuntu  721 Sep 18 18:23 rbac.yaml
+-rw-rw-r-- 1 ubuntu ubuntu 1760 Sep 18 18:23 reporter.yaml
+cat: broken-chart/templates/_helpers.tpl: No such file or directory
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mcd ~/Devops-test/lab[27m
+[7mcat > broken-chart/templates/_helpers.tpl << 'EOF'[27m
+[7m{{- define "lab.labels" -}}[27m
+[7mapp.kubernetes.io/part-of: eb-debug-lab[27m
+[7mapp.kubernetes.io/managed-by: {{ .Release.Service }}[27m
+[7mhelm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}[27m
+[7m{{- end }}[27m
+[7mEOF[27m[A[A[A[A[A[A[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ cd ~/Devops-test/lab
+cat > broken-chart/templates/_helpers.tpl << 'EOF'
+{{- define "lab.labels" -}}
+app.kubernetes.io/part-of: eb-debug-lab
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- end }}
+EOF
+[?2004l[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mcat broken-chart/templates/_helpers.tpl[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat broken-chart/templates/_helpers.tpl
+[?2004l{{- define "lab.labels" -}}
+app.kubernetes.io/part-of: eb-debug-lab
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- end }}
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mkubectl delete pod eb-verify-probe -n debug-lab --force --grace-period=0 2>/dev/null[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl delete pod eb-verify-probe -n debug-lab --force --grace-period=0 2>/dev/null
+[?2004lpod "eb-verify-probe" force deleted
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7m./scenario.sh up[27m
+[7m./scenario.sh verify[27m[A]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ./scenario.sh up
+./scenario.sh verify
+[?2004l==> applying cluster environment (cluster-state/)
+limitrange/debug-lab-guardrails unchanged
+namespace/debug-lab unchanged
+==> installing the broken chart
+Release "debug-lab" does not exist. Installing it now.
+Error: server-side apply failed for object debug-lab/migrate batch/v1, Kind=Job: Job.batch "migrate" is invalid: spec.template.spec.restartPolicy: Required value: valid values: "OnFailure", "Never"
+
+[2mhelm reported an error. That is not your machine misbehaving —[0m
+[2mit is part of the exercise. Read the error; it is evidence.[0m
+
+Lab is (partially) installed. Investigate with kubectl, fix the chart,
+re-run './scenario.sh up' to apply your fixes, and './scenario.sh verify'
+to check progress.
+==> verifying goal state in namespace debug-lab
+  [31mFAIL[0m  migrate Job has not completed (does it exist? did the chart even install cleanly?)
+  [31mFAIL[0m  deployment backend: 0/1 ready
+  [31mFAIL[0m  deployment gateway: 0/1 ready
+  [31mFAIL[0m  deployment worker: 0/? ready
+  [31mFAIL[0m  deployment reporter: 0/1 ready
+  [31mFAIL[0m  deployment metrics: 0/1 ready
+  [32mPASS[0m  no pods in CrashLoopBackOff
+  [31mFAIL[0m  ServiceAccount debug-lab/reporter cannot list pods
+  [31mFAIL[0m  backend does not answer on http://backend:8080/healthz
+  [31mFAIL[0m  gateway /status does not report backend=ok
+  [31mFAIL[0m  reporter /report does not return a pod count
+
+[31m10 check(s) failing[0m, 1 passing. Keep digging — every failure is a symptom.
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ ./scenario.sh verify[4Pupkubectl delete pod eb-verify-probe -n debug-lab --force --grace-period=0 2>/dev/null[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[45Pcat broken-chart/templates/_helpers.tpl> broken-chart/templates/_helpers.tpl << 'EOF'
+{{- define "lab.labels" -}}
+app.kubernetes.io/part-of: eb-debug-lab
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- end }}
+EOF
+[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[30Pd ~/Devops-test/lab
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cat broken-chart/templates/_helpers.tpl[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Pls -la broken-chart/templates/[1Pkubectl get pods -n debug-lab[9P./scenario.sh verifykubectl get pods -n debug-lab
+[?2004lNAME                        READY   STATUS                       RESTARTS   AGE
+backend-9764b8cff-fbvsk     0/1     CreateContainerConfigError   0          2m52s
+gateway-5448d69955-skth2    0/1     CreateContainerConfigError   0          2m52s
+reporter-75847ff496-sh6ft   0/1     CreateContainerConfigError   0          2m52s
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mkubectl describe pod backend-9764b8cff-fbvsk -n debug-lab[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl describe pod backend-9764b8cff-fbvsk -n debug-lab
+[?2004lName:             backend-9764b8cff-fbvsk
+Namespace:        debug-lab
+Priority:         0
+Service Account:  default
+Node:             demo-control-plane/172.18.0.2
+Start Time:       Fri, 18 Sep 2026 18:25:16 +0000
+Labels:           app=backend
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/part-of=eb-debug-lab
+                  helm.sh/chart=debug-lab-2.0.0
+                  pod-template-hash=9764b8cff
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.19
+IPs:
+  IP:           10.244.0.19
+Controlled By:  ReplicaSet/backend-9764b8cff
+Containers:
+  backend:
+    Container ID:   
+    Image:          docker.io/ebinterview/eb-debug-app:1.0.1
+    Image ID:       
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       CreateContainerConfigError
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:      50m
+      memory:   64Mi
+    Readiness:  http-get http://:8080/healthz delay=3s timeout=3s period=5s #success=1 #failure=3
+    Environment:
+      APP_MODE:  api
+      APP_NAME:  backend
+      VERSION:   2.0.0
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-94j7c (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-94j7c:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  3m16s                 default-scheduler  Successfully assigned debug-lab/backend-9764b8cff-fbvsk to demo-control-plane
+  Normal   Pulling    2m56s                 kubelet            Pulling image "docker.io/ebinterview/eb-debug-app:1.0.1"
+  Normal   Pulled     2m17s                 kubelet            Successfully pulled image "docker.io/ebinterview/eb-debug-app:1.0.1" in 16.521s (39.079s including waiting). Image size: 3279587 bytes.
+  Warning  Failed     11s (x10 over 2m14s)  kubelet            Error: container has runAsNonRoot and image has non-numeric user (nonroot), cannot verify user is non-root (pod: "backend-9764b8cff-fbvsk_debug-lab(34eb2a50-205a-449a-a511-597894c4c11c)", container: backend)
+  Normal   Pulled     11s (x9 over 2m8s)    kubelet            Container image "docker.io/ebinterview/eb-debug-app:1.0.1" already present on machine
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mkubectl run debug-check --rm -it --restart=Never \[27m
+[7m  --image=docker.io/ebinterview/eb-debug-app:1.0.1 \[27m
+[7m  --overrides='{"spec":{"securityContext":{}}}' \[27m
+[7m  -- id 2>&1 || echo "won't run without valid securityContext — that's the same bug blocking us"[27m[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl run debug-check --rm -it --restart=Never \
+  --image=docker.io/ebinterview/eb-debug-app:1.0.1 \
+  --overrides='{"spec":{"securityContext":{}}}' \
+  -- id 2>&1 || echo "won't run without valid securityContext — that's the same bug blocking us"
+[?2004lIf you don't see a command prompt, try pressing enter.
+
+^C2026/09/18 18:31:10 received interrupt, shutting down
+2026/09/18 18:31:11 shutdown complete
+pod "debug-check" deleted
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [7mkubectl get pods -n debug-lab[27mkubectl get pods -n debug-lab
+[?2004lNAME                        READY   STATUS      RESTARTS   AGE
+backend-54797dc84f-98b6h    1/1     Running     0          36m
+gateway-68d8c547b5-hrqjd    0/1     Running     0          10m
+gateway-78756596d7-lwxnb    0/1     Running     0          28m
+migrate-2zjqt               0/1     Completed   0          28m
+reporter-6d799cbfbd-lpdt2   0/1     Running     0          28m
+[?2004h]0;ubuntu@master: ~/Devops-test/lab[01;32mubuntu@master[00m:[01;34m~/Devops-test/lab[00m$ [?2004l
+exit
+
+Script done on 2026-09-18 21:35:54+00:00 [COMMAND_EXIT_CODE="0"]
+  --overrides='{"spec":{"securityContext":{}}}' \[27m
+[7m  -- id 2>&1 || echo "won't run without valid securityContext — that's the same bug blocking us"[27m[A[A[A[C[C[C[C[C[C[C[C

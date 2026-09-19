@@ -48,5 +48,6 @@ spec:
           {{- toYaml .Values.resources | nindent 10 }}
         securityContext:
           runAsNonRoot: true
+          runAsUser: 1000
           readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
